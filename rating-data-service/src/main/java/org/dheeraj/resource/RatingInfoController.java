@@ -1,10 +1,9 @@
 package org.dheeraj.resource;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.dheeraj.datasource.RatingCollection;
-import org.dheeraj.models.Rating;
+import org.dheeraj.models.UserMovieRatings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +19,7 @@ public class RatingInfoController {
     private RatingCollection ratingCollection;
 
     @GetMapping("/getRatings/{userId}")
-    public ResponseEntity<List<Rating>> getUserRatings(@PathVariable("userId") Integer userId){
-        
-        return ResponseEntity.ok().body(ratingCollection.getRatingCollection().stream().filter(rating -> rating.getUserId().equals(userId)).collect(Collectors.toList()));
-
+    public ResponseEntity<UserMovieRatings> getUserRatings(@PathVariable("userId") Integer userId){
+        return ResponseEntity.ok().body(new UserMovieRatings(ratingCollection.getRatingCollection().stream().filter(rating -> rating.getUserId().equals(userId)).collect(Collectors.toList())));
     }
 }

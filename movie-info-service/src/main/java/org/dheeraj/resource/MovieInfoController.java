@@ -1,6 +1,7 @@
 package org.dheeraj.resource;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.netflix.discovery.converters.Auto;
@@ -30,7 +31,16 @@ public class MovieInfoController {
     private String apiKey;
 
     @GetMapping("/getMovieInfo/{movieId}")
-    public ResponseEntity<Movie> getMovieInformation(@PathVariable("movieId") Integer movieId){
+    public ResponseEntity<Movie> getMovieInformation(@PathVariable("movieId") Integer movieId) throws InterruptedException{
+
+        Random r = new Random();
+        int low = 1;
+        int high = 1500;
+        Integer randomSleepTime = r.nextInt(high-low) + low;
+
+        System.out.println("randomSleepTime "+ randomSleepTime );
+        Thread.sleep(randomSleepTime);
+
 
         Movie movie = restTemplate.getForObject("https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+apiKey,Movie.class);
 

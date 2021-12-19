@@ -1,0 +1,13 @@
+message: "Hello!"
+
+db:
+  host: localhost
+  port: 9000
+  username: dheeraj
+  instance: user
+
+spring:
+  profiles:
+    active: prod
+  config:
+    import: configserver:http://localhost:8888
